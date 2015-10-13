@@ -98,28 +98,28 @@ public class Remote extends Item implements Avatar {
         }
         else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
             if (carriedBy == null) {
-                moveRight(e.isControlDown());
+                moveRight(e.isAltDown());
             }
             repeating = 0;
             return true;
         }
         else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
             if (carriedBy == null) {
-                moveLeft(e.isControlDown());
+                moveLeft(e.isAltDown());
             }
             repeating = 0;
             return true;
         }
         else if (e.getKeyCode() == KeyEvent.VK_UP) {
             if (carriedBy == null) {
-                moveUp(e.isControlDown());
+                moveUp(e.isAltDown());
             }
             repeating = 0;
             return true;
         }
         else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
             if (carriedBy == null) {
-                moveDown(e.isControlDown());
+                moveDown(e.isAltDown());
             }
             repeating = 0;
             return true;
@@ -134,7 +134,7 @@ public class Remote extends Item implements Avatar {
         if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
             repeating++;
             if (repeating > 10) {
-                moveRight(e.isControlDown());
+                moveRight(e.isAltDown());
                 return true;
             }
             return false;
@@ -142,7 +142,7 @@ public class Remote extends Item implements Avatar {
         else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
             repeating++;
             if (repeating > 10) {
-                moveLeft(e.isControlDown());
+                moveLeft(e.isAltDown());
                 return true;
             }
             return false;
@@ -150,7 +150,7 @@ public class Remote extends Item implements Avatar {
         else if (e.getKeyCode() == KeyEvent.VK_UP) {
             repeating++;
             if (repeating > 10) {
-                moveUp(e.isControlDown());
+                moveUp(e.isAltDown());
                 return true;
             }
             return false;
@@ -158,7 +158,7 @@ public class Remote extends Item implements Avatar {
         else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
             repeating++;
             if (repeating > 10) {
-                moveDown(e.isControlDown());
+                moveDown(e.isAltDown());
                 return true;
             }
             return false;

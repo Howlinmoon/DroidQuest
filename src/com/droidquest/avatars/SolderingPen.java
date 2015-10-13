@@ -299,6 +299,19 @@ public class SolderingPen extends Device implements Avatar {
     }
 
     public boolean KeyUp(KeyEvent e) {
+        
+        String OS = System.getProperty("os.name").toLowerCase();
+        boolean isMac = false;
+        if (OS.indexOf("mac") >= 0) {
+            isMac = true;
+            //System.out.println("Running on a Mac");
+        } else {
+            //System.out.println("Not running on a Mac");
+        }
+        
+        boolean isSecondKeyDown = (isMac && e.isAltDown()) || (!isMac && e.isControlDown());
+
+        
         if (e.getKeyCode() == KeyEvent.VK_C && handleGameCursor()) {
             return false;
         }
@@ -313,28 +326,28 @@ public class SolderingPen extends Device implements Avatar {
         }
         else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
             if (carriedBy == null) {
-                moveRight(e.isAltDown());
+                moveRight(isSecondKeyDown);
             }
             repeating = 0;
             return true;
         }
         else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
             if (carriedBy == null) {
-                moveLeft(e.isAltDown());
+                moveLeft(isSecondKeyDown);
             }
             repeating = 0;
             return true;
         }
         else if (e.getKeyCode() == KeyEvent.VK_UP) {
             if (carriedBy == null) {
-                moveUp(e.isAltDown());
+                moveUp(isSecondKeyDown);
             }
             repeating = 0;
             return true;
         }
         else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
             if (carriedBy == null) {
-                moveDown(e.isAltDown());
+                moveDown(isSecondKeyDown);
             }
             repeating = 0;
             return true;
@@ -355,10 +368,23 @@ public class SolderingPen extends Device implements Avatar {
     }
 
     public boolean KeyDown(KeyEvent e) {
+
+        String OS = System.getProperty("os.name").toLowerCase();
+        boolean isMac = false;
+        if (OS.indexOf("mac") >= 0) {
+            isMac = true;
+            //System.out.println("Running on a Mac");
+        } else {
+            //System.out.println("Not running on a Mac");
+        }
+        
+        boolean isSecondKeyDown = (isMac && e.isAltDown()) || (!isMac && e.isControlDown());
+
+        
         if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
             repeating++;
             if (repeating > 10) {
-                moveRight(e.isAltDown());
+                moveRight(isSecondKeyDown);
                 return true;
             }
             return false;
@@ -374,7 +400,7 @@ public class SolderingPen extends Device implements Avatar {
         else if (e.getKeyCode() == KeyEvent.VK_UP) {
             repeating++;
             if (repeating > 10) {
-                moveUp(e.isAltDown());
+                moveUp(isSecondKeyDown);
                 return true;
             }
             return false;
@@ -382,7 +408,7 @@ public class SolderingPen extends Device implements Avatar {
         else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
             repeating++;
             if (repeating > 10) {
-                moveDown(e.isAltDown());
+                moveDown(isSecondKeyDown);
                 return true;
             }
             return false;

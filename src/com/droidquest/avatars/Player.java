@@ -15,8 +15,6 @@ import java.awt.event.KeyEvent;
 public class Player extends Item implements Avatar {
 
     private int keyRepeatRate = 5;
-
-
     protected boolean handleSaveSmallChip() {
         return false;
     }
@@ -338,6 +336,18 @@ public class Player extends Item implements Avatar {
     }
 
     public boolean KeyUp(KeyEvent e) {
+        
+        String OS = System.getProperty("os.name").toLowerCase();
+        boolean isMac = false;
+        if (OS.indexOf("mac") >= 0) {
+            isMac = true;
+            //System.out.println("Running on a Mac");
+        } else {
+            //System.out.println("Not running on a Mac");
+        }
+        
+        boolean isSecondKeyDown = (isMac && e.isAltDown()) || (!isMac && e.isControlDown());
+        
         if (e.getKeyCode() == KeyEvent.VK_L && handleLoadSmallChip()) {
             return false;
         }
@@ -362,16 +372,16 @@ public class Player extends Item implements Avatar {
         else if (e.getKeyCode() == KeyEvent.VK_SLASH && handleHelp()) {
             return false;
         }
-        else if (e.getKeyCode() == KeyEvent.VK_RIGHT && handleMoveRight(e.isShiftDown(), e.isAltDown())) {
+        if (e.getKeyCode() == KeyEvent.VK_RIGHT && handleMoveRight(e.isShiftDown(), isSecondKeyDown)) {
             return true;
         }
-        else if (e.getKeyCode() == KeyEvent.VK_LEFT && handleMoveLeft(e.isShiftDown(), e.isAltDown())) {
+        else if (e.getKeyCode() == KeyEvent.VK_LEFT && handleMoveLeft(e.isShiftDown(), isSecondKeyDown)) {
             return true;
         }
-        else if (e.getKeyCode() == KeyEvent.VK_UP && handleMoveUp(e.isShiftDown(), e.isAltDown())) {
+        else if (e.getKeyCode() == KeyEvent.VK_UP && handleMoveUp(e.isShiftDown(), isSecondKeyDown)) {
             return true;
         }
-        else if (e.getKeyCode() == KeyEvent.VK_DOWN && handleMoveDown(e.isShiftDown(), e.isAltDown())) {
+        else if (e.getKeyCode() == KeyEvent.VK_DOWN && handleMoveDown(e.isShiftDown(), isSecondKeyDown)) {
             return true;
         }
         else if (e.getKeyCode() == KeyEvent.VK_SPACE && handlePickupDrop()) {
